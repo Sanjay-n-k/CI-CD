@@ -35,7 +35,12 @@ jobs:
           subject: "✅ Deployment Successful"
           to: ${{ secrets.MAIL_TO }}
           from: ${{ secrets.MAIL_USERNAME }}
-          body: "Your website was successfully deployed via GitHub Actions!"
+          body: |
+            ✅ Deployment Successful!
+            🕒 Time: ${{ steps.date.outputs.date }}
+            ✍️ Commit by: ${{ github.actor }}
+            💬 Commit message: ${{ github.event.head_commit.message }}
+          
 
       - name: ❌ Send failure email
         if: failure()
