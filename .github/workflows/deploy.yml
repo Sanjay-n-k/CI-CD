@@ -1,4 +1,4 @@
-name: 🚀 FTP Deploy
+name: 🚀 Deploy to Hostinger via FTP
 
 on:
   push:
@@ -6,8 +6,7 @@ on:
       - main
 
 jobs:
-  ftp-deploy:
-    name: 📦 Upload via FTP
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -15,11 +14,35 @@ jobs:
         uses: actions/checkout@v3
 
       - name: 📤 Deploy to Hostinger via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        uses: SamKirkland/FTP-Deploy-Action@v4
         with:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          port: ${{ secrets.FTP_PORT }}
-          local-dir: ./
           server-dir: /public_html/
+
+      - name: ✅ Send success email
+        if: success()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: "✅ Deployment Successful"
+          to: ${{ secrets.MAIL_TO }}
+          from: ${{ secrets.MAIL_USERNAME }}
+          body: "Your website was successfully deployed via GitHub Actions!"
+      
+      - name: ❌ Send failure email
+        if: failure()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: "❌ Deployment Failed"
+          to: ${{ secrets.MAIL_TO }}
+          from: ${{ secrets.MAIL_USERNAME }}
+          body: "Deployment via GitHub Actions failed. Check the logs."
