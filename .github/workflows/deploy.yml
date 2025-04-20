@@ -26,25 +26,29 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            # Debug: List current directory contents
-            echo "Listing current files in the home directory"
+            # Debug: List current files in the home directory and the domains directory
+            echo "Listing contents of home directory"
             ls -l ~
 
+            echo "Listing contents of domains directory"
+            ls -l ~/domains
+
             # Check if public_html_old exists, and remove it
-            if [ -d ~/public_html_old ]; then
+            if [ -d ~/domains/public_html_old ]; then
                 echo "Removing existing public_html_old directory"
-                rm -rf ~/public_html_old
+                rm -rf ~/domains/public_html_old
             else
                 echo "public_html_old does not exist, no need to remove"
             fi
 
-            # Check if public_html exists, and rename it
-            if [ -d ~/public_html ]; then
-                echo "public_html exists, renaming it to public_html_old"
-                mv ~/public_html ~/public_html_old
+            # Check if public_html exists in the domains directory, and rename it
+            if [ -d ~/domains/public_html ]; then
+                echo "public_html exists in the domains directory, renaming it to public_html_old"
+                mv ~/domains/public_html ~/domains/public_html_old
             else
-                echo "public_html does not exist, skipping renaming"
+                echo "public_html does not exist in the domains directory, skipping renaming"
             fi
+
 
       
 
