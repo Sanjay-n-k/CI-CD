@@ -26,8 +26,24 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            if [ -d public_html_old ]; then rm -rf public_html_old; fi
-            if [ -d public_html ]; then mv public_html public_html_old; fi
+            # Debug: List current directory contents
+            echo "Listing current files in the root directory"
+            ls -l /
+
+            if [ -d /public_html_old ]; then
+                echo "Removing existing public_html_old directory"
+                rm -rf /public_html_old
+            else
+                echo "public_html_old does not exist, no need to remove"
+            fi
+
+            # Debug: Check if public_html exists
+            if [ -d /public_html ]; then
+                echo "public_html exists, renaming it to public_html_old"
+                mv /public_html /public_html_old
+            else
+                echo "public_html does not exist, skipping renaming"
+            fi
       
 
       - name: 📤 Deploy to Hostinger via FTP
