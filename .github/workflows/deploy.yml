@@ -44,7 +44,7 @@ jobs:
             # Check if public_html exists in the domains directory, and rename it
             if [ -d ~/domains/profile.optimumsync.space/public_html ]; then
                 echo "public_html exists in the domains directory, renaming it to public_html_old"
-                mv ~/domains/profile.optimumsync.space/public_html ~/domains/public_html_old
+                mv ~/domains/profile.optimumsync.space/public_html ~/domains/profile.optimumsync.space/public_html_old
             else
                 echo "public_html does not exist in the domains directory, skipping renaming"
             fi
