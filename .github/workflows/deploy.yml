@@ -34,23 +34,20 @@ jobs:
             ls -l ~/domains
 
             # Check if public_html_old exists, and remove it
-            if [ -d ~/domains/public_html_old ]; then
+            if [ -d ~/domains/profile.optimumsync.space/public_html_old ]; then
                 echo "Removing existing public_html_old directory"
-                rm -rf ~/domains/public_html_old
+                rm -rf ~/domains/profile.optimumsync.space/public_html_old
             else
                 echo "public_html_old does not exist, no need to remove"
             fi
 
             # Check if public_html exists in the domains directory, and rename it
-            if [ -d ~/domains/public_html ]; then
+            if [ -d ~/domains/profile.optimumsync.space/public_html ]; then
                 echo "public_html exists in the domains directory, renaming it to public_html_old"
-                mv ~/domains/public_html ~/domains/public_html_old
+                mv ~/domains/profile.optimumsync.space/public_html ~/domains/public_html_old
             else
                 echo "public_html does not exist in the domains directory, skipping renaming"
             fi
-
-
-      
 
       - name: 📤 Deploy to Hostinger via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
