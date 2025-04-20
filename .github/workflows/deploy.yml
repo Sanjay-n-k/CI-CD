@@ -16,7 +16,7 @@ jobs:
 
       - name: 🕒 Get current date/time
         id: date
-        run: echo "date=$(date -u +'%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_OUTPUT
+        run: echo "date=$(TZ=Asia/Kolkata date '+%d-%m-%Y , %H:%M:%S')" >> $GITHUB_OUTPUT
 
       - name: 📁 Backup existing site via SSH
         uses: appleboy/ssh-action@v1.0.0
@@ -58,6 +58,8 @@ jobs:
             📦 Repo: ${{ github.repository }}
             🔁 Commit: ${{ github.event.head_commit.id }}
             💬 Message: ${{ github.event.head_commit.message }}
+            🌐 Website URL: [View Live Website](https://profile.optimumsync.com)
+            > You can open the link in **incognito mode** to avoid any cache issues and ensure you see the most recent version of the website.
 
       - name: ❌ Send failure email
         if: failure()
