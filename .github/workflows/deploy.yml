@@ -14,6 +14,22 @@ jobs:
       - name: ⬇️ Checkout Code
         uses: actions/checkout@v3
 
+      - name: 🕒 Get current date/time
+        id: date
+        run: echo "date=$(date -u +'%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_OUTPUT
+
+      - name: 📁 Backup existing site via SSH
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            if [ -d public_html_old ]; then rm -rf public_html_old; fi
+            if [ -d public_html ]; then mv public_html public_html_old; fi
+      
+
       - name: 📤 Deploy to Hostinger via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
@@ -38,9 +54,10 @@ jobs:
           body: |
             ✅ Deployment Successful!
             🕒 Time: ${{ steps.date.outputs.date }}
-            ✍️ Commit by: ${{ github.actor }}
-            💬 Commit message: ${{ github.event.head_commit.message }}
-          
+            👤 Deployed by: ${{ github.actor }}
+            📦 Repo: ${{ github.repository }}
+            🔁 Commit: ${{ github.event.head_commit.id }}
+            💬 Message: ${{ github.event.head_commit.message }}
 
       - name: ❌ Send failure email
         if: failure()
@@ -53,4 +70,10 @@ jobs:
           subject: "❌ Deployment Failed"
           to: ${{ secrets.MAIL_TO }}
           from: ${{ secrets.MAIL_USERNAME }}
-          body: "Deployment via GitHub Actions failed. Check the logs."
+          body: |
+            ❌ Deployment Failed!
+            🕒 Time: ${{ steps.date.outputs.date }}
+            👤 Triggered by: ${{ github.actor }}
+            📦 Repo: ${{ github.repository }}
+            💬 Commit Message: ${{ github.event.head_commit.message }}
+            🔎 Check the logs for more details.
