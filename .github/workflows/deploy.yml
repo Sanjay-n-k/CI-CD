@@ -44,7 +44,7 @@ jobs:
             # Check if public_html exists in the domains directory, and rename it
             if [ -d ~/domains/profile.optimumsync.space/public_html ]; then
                 echo "public_html exists in the domains directory, renaming it to public_html_old"
-                mv ~/domains/profile.optimumsync.space/public_html ~/domains/profile.optimumsync.space/public_html_old
+                mv ~/domains/profile.optimumsync.space/public_html ~/domains/<profile.optimumsync.space>/public_html_old
             else
                 echo "public_html does not exist in the domains directory, skipping renaming"
             fi
@@ -56,8 +56,8 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           port: ${{ secrets.FTP_PORT }}
-          local-dir: ./  # Path to your local directory
-          server-dir: /public_html/  # Path to the target directory on the server
+          local-dir: ./ 
+          server-dir: /public_html/  
 
       - name: ✅ Send success email
         if: success()
@@ -68,15 +68,15 @@ jobs:
           username: ${{ secrets.MAIL_USERNAME }}
           password: ${{ secrets.MAIL_PASSWORD }}
           subject: "✅ Deployment Successful"
-          to: ${{ secrets.MAIL_TO }}, devil.lived124@gmail.com
+          to: ${{ secrets.MAIL_TO }}
           from: ${{ secrets.MAIL_USERNAME }}
           body: |
             ✅ Deployment Successful!
             🕒 Time: ${{ steps.date.outputs.date }}
             👤 Deployed by: ${{ github.actor }}
             📦 Repo: ${{ github.repository }}
-            🔁 Commit: ${{ github.event.head_commit.id }}
-            💬 Message: ${{ github.event.head_commit.message }}
+            🔁 Commit ID: ${{ github.event.head_commit.id }}
+            💬 Commit Msg: ${{ github.event.head_commit.message }}
             🌐 Website URL: [View Live Website](https://profile.optimumsync.com)
             > You can open the link in **incognito mode** to avoid any cache issues and ensure you see the most recent version of the website.
 

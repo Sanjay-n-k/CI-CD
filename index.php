@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Dynamic Website</title>
+    <title>CI/CD Trial Website</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -58,6 +58,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Arial:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>CI/CD using GitHub Actions & Hostinger!</h1>
+    <h1>CI/CD using GitHub Actions & Hostinger!!</h1>
 </body>
 </html>
