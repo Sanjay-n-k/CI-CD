@@ -63,4 +63,5 @@ This project uses GitHub Secrets to securely store sensitive information require
 * Ensure all secrets are properly set in your GitHub repository's `Settings > Secrets and variables > Actions secrets`.
 * SSH features require Hostinger SSH access and correct credentials.
 * `public_html` is usually located at `/domains/<your-domain>/public_html`.
+* 🔧 Make sure to update the SSH commands with your actual server path, typically '~/domains/<your-domain>/public_html'.
 
