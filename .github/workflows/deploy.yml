@@ -75,9 +75,9 @@ jobs:
             🕒 Time: ${{ steps.date.outputs.date }}
             👤 Deployed by: ${{ github.actor }}
             📦 Repo: ${{ github.repository }}
-            🔁 Commit ID: ${{ github.event.head_commit.id }}
             💬 Commit Msg: ${{ github.event.head_commit.message }}
-            🌐 Website URL: [View Live Website](https://profile.optimumsync.com)
+            🔁 Commit ID: ${{ github.event.head_commit.id }}
+            🌐 Website URL: [View Live Website](https://profile.optimumsync.space)
             > You can open the link in **incognito mode** to avoid any cache issues and ensure you see the most recent version of the website.
 
       - name: ❌ Send failure email

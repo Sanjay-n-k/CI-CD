@@ -58,6 +58,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Arial:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>CI/CD using GitHub Actions & Hostinger!! trial 1</h1>
+    <h1>CI/CD using GitHub Actions & Hostinger! trial 0</h1>
 </body>
 </html>
